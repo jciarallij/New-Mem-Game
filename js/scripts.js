@@ -67,11 +67,37 @@ $(document).ready(function(){
 
 		$('.mg-tile').click(function(){
 			$(this).find('.mg-tile-inner').addClass('flipped');
-		})
+			if($('.flipped.unmatched').length == 2){
+				moves++
+				var visibleCards = $('.flipped.unmatched img');
+				if(visibleCards[0].src == visibleCards[1].src){
+					//leave them flipped
+					//add matched
+					$('.flipped.unmatched').addClass('matched');
+					//remove unmatched
+					$('.flipped.unmatched').removeClass('unmatched');
+				}else{
+					//The user has flipped over 2 cards and they DO NOT match.	
+					setTimeout(function(){
+						$('.flipped.unmatched').removeClass('flipped');	
+					},500);
+				}
+				if($('.flipped.matched').length == gridArray.length){
+					alert('you have matched them all');
+					wins++
+				}
+			}else{
+				//Only one card is flipped up
+			}
+			$('#move-counter').html(moves);
+			$('#wins-counter').html(wins);	
+
+
 
 
 	});
 
 });
 
+});
 
